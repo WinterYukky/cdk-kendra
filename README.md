@@ -47,7 +47,25 @@ When you use Kendra Developer Edition (KDE) then specify edition.
 ```ts
 import { Index, Edition } from 'cdk-kendra';
 const index = new Index(this, 'Index', {
-  edition: Edition.DEVELOPER,
+  edition: Edition.developer(),
+});
+```
+
+### Capacity units
+
+Amazon Kendra provides resources for your index in capacity units.
+Each capacity unit provides additional resources for your index.
+There are separate capacity units for document storage and for queries.
+You can only add capacity units to Amazon Kendra Enterprise Edition indexes.
+You can't add capacity to a Developer Edition index.
+
+```ts
+import { Index, Edition } from 'cdk-kendra';
+const index = new Index(this, 'Index', {
+  edition: Edition.enterprise({
+    queryCapacityUnits: 1,
+    storageCapacityUnits: 1,
+  }),
 });
 ```
 
@@ -59,7 +77,7 @@ import { Index } from 'cdk-kendra';
 declare const myFunc: lambda.Function;
 
 const index = new Index(this, 'Index');
-index.grantQuery(myFunc);
+index.grantReadDocument(myFunc);
 ```
 
 ```ts
