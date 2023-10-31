@@ -5,7 +5,7 @@ Currently suppport following data sources.
 
 - S3
 
-## Instalatiom
+## Instlation
 
 ```bash
 npm install cdk-kendra
@@ -71,6 +71,17 @@ const index = new Index(this, 'Index', {
 
 ## Permissions
 
+Arbitrary permissions can be granted using the grant API.
+```ts
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { Index } from 'cdk-kendra';
+declare const myFunc: lambda.Function;
+
+const index = new Index(this, 'Index');
+index.grant(myFunc, 'kendra:DescribeIndex');
+```
+
+You can use `grantReadDocument` for applications that use the Query API or Retrieve API, and `grantWriteDocument` for applications that write documents.
 ```ts
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { Index } from 'cdk-kendra';
@@ -80,14 +91,6 @@ const index = new Index(this, 'Index');
 index.grantReadDocument(myFunc);
 ```
 
-```ts
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { Index } from 'cdk-kendra';
-declare const myFunc: lambda.Function;
-
-const index = new Index(this, 'Index');
-index.grant(myFunc, 'kendra:DescribeIndex');
-```
 
 # API Reference <a name="API Reference" id="api-reference"></a>
 
