@@ -106,7 +106,7 @@ export abstract class DataSourceBase
         }),
     });
     this.role =
-      props.role ?? props.type !== Type.CUSTOM
+      (props.role ?? props.type !== Type.CUSTOM)
         ? new iam.Role(this, 'ServiceRole', {
             assumedBy: new iam.ServicePrincipal('kendra.amazonaws.com'),
             path: '/service-role/',
